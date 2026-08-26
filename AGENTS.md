@@ -1,0 +1,22 @@
+# Agent Guide
+
+## Commands
+
+- Install dependencies with `bundle install`.
+- Run all tests with `bundle exec rake test`.
+- Run one test file with `bundle exec ruby -Ilib:test test/test_add_key.rb` (replace the filename as needed).
+- The CI/default task is `bundle exec rake`, which runs tests followed by RuboCop.
+
+## Structure
+
+- `exe/yaml-smith` is only the executable wrapper; CLI dispatch and error handling belong in `lib/yaml_smith/cli.rb`.
+- Each command has its own class and file: `AddKey`, `SetKey`, and `DeleteKey`.
+- Shared file loading, validation, and atomic writing live in `YamlSmith::FileCommand`.
+- Commands currently operate on top-level mapping keys only; do not add nested-path behavior implicitly.
+
+## YAML Behavior
+
+- Use `Psych::Pure`, not standard `Psych`; it is required to preserve comments where possible.
+- Load existing files and values with `comments: true`.
+- Values passed on the command line are YAML and should retain their YAML types.
+- File edits are written through a same-directory temporary file and rename; preserve this atomic-write behavior.
