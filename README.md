@@ -1,9 +1,7 @@
 # YamlSmith
 
-A command-line tool for manipulating YAML files while preserving comments.
-
-YamlSmith uses [Psych::Pure](https://github.com/kddnewton/psych-pure) to
-preserve YAML comments where possible.
+A command-line tool for manipulating YAML files while preserving comments,
+powered by [Psych::Pure](https://github.com/kddnewton/psych-pure).
 
 ## Installation
 
