@@ -9,7 +9,8 @@ Gem::Specification.new do |spec|
   spec.email = ['andyw8@users.noreply.github.com']
 
   spec.summary = 'A command-line tool for manipulating YAML files while preserving comments.'
-  spec.description = 'YamlSmith manipulates YAML files from the command line and uses Psych::Pure to preserve comments where possible.'
+  spec.description = 'YamlSmith manipulates YAML files from the command line ' \
+                     'and uses Psych::Pure to preserve comments where possible.'
   spec.homepage = 'https://github.com/andyw8/yaml_smith'
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.2.0'
