@@ -34,11 +34,14 @@ Set or replace a top-level key:
 yaml-smith set config.yml timeout 60
 ```
 
-Delete a top-level key:
+Delete a uniquely matching key at any nesting depth:
 
 ```bash
 yaml-smith delete config.yml timeout
 ```
+
+Mappings and arrays are traversed recursively. The command fails if the key is
+missing or occurs more than once.
 
 ## Development
 
