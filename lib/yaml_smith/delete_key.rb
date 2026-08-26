@@ -22,7 +22,7 @@ module YamlSmith
       when Psych::Pure::LoadedHash
         matches << value if value.key?(@key)
         value.each_value { |child| find_matches(child, matches) }
-      when Psych::Pure::LoadedArray
+      when Array
         value.each { |child| find_matches(child, matches) }
       end
 
