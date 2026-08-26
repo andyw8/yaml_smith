@@ -31,6 +31,18 @@ yaml-smith add config.yml timeout 30
 The value is parsed as YAML, so values such as `true`, `null`, arrays, and
 objects retain their YAML types. Existing keys are not overwritten.
 
+Set or replace a top-level key:
+
+```bash
+yaml-smith set config.yml timeout 60
+```
+
+Delete a top-level key:
+
+```bash
+yaml-smith delete config.yml timeout
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
