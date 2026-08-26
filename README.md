@@ -22,7 +22,14 @@ gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
 
 ## Usage
 
-TODO: Write usage instructions here
+Add a top-level key to an existing YAML file:
+
+```bash
+yaml-smith add config.yml timeout 30
+```
+
+The value is parsed as YAML, so values such as `true`, `null`, arrays, and
+objects retain their YAML types. Existing keys are not overwritten.
 
 ## Development
 
