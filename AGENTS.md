@@ -20,3 +20,4 @@
 - Load existing files and values with `comments: true`.
 - Values passed on the command line are YAML and should retain their YAML types.
 - File edits are written through a same-directory temporary file and rename; preserve this atomic-write behavior.
+- In tests, use squiggly heredocs (`<<~YAML`) for multiline YAML fixtures and expected YAML output so the structure remains readable.
