@@ -10,7 +10,7 @@ module YamlSmith
       'set' => SetKey,
       'delete' => DeleteKey
     }.freeze
-    USAGE = 'Usage: yaml-smith COMMAND FILE KEY [VALUE]'
+    USAGE = 'Usage: yaml-smith COMMAND FILE KEY [VALUE] [--top-level-only]'
 
     def self.call(arguments)
       new(arguments).call
@@ -24,7 +24,7 @@ module YamlSmith
       command = COMMANDS[@arguments.first]
       return usage unless valid_arguments?(command)
 
-      command.call(*command_arguments)
+      command.call(*command_arguments, **command_options)
     rescue Error => e
       warn e.message
       1
@@ -43,7 +43,13 @@ module YamlSmith
     end
 
     def command_arguments
-      @arguments.drop(1)
+      @arguments.drop(1).reject { |argument| argument == '--top-level-only' }
+    end
+
+    def command_options
+      return {} unless delete_command?
+
+      { top_level_only: @arguments.include?('--top-level-only') }
     end
 
     def usage

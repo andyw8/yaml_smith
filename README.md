@@ -34,10 +34,23 @@ Set or replace a top-level key:
 yaml-smith set config.yml timeout 60
 ```
 
-Delete a top-level key:
+Delete matching keys recursively:
 
 ```bash
 yaml-smith delete config.yml timeout
+```
+
+Delete searches mappings nested inside arrays and other mappings. For example,
+this removes the `WEB_CONCURRENCY` entry from a nested `envVars` list:
+
+```bash
+yaml-smith delete render.yaml WEB_CONCURRENCY
+```
+
+Use `--top-level-only` to restrict deletion to the document's top-level keys:
+
+```bash
+yaml-smith delete config.yml timeout --top-level-only
 ```
 
 ## Development
