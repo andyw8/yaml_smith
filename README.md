@@ -47,6 +47,12 @@ this removes the `WEB_CONCURRENCY` entry from a nested `envVars` list:
 yaml-smith delete render.yaml WEB_CONCURRENCY
 ```
 
+Use `--top-level-only` to restrict deletion to the document's top-level keys:
+
+```bash
+yaml-smith delete config.yml timeout --top-level-only
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then,

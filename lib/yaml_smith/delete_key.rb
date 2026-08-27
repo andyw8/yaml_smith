@@ -3,11 +3,12 @@
 module YamlSmith
   # Deletes matching keys from a YAML file.
   class DeleteKey < FileCommand
-    def call
+    def call(top_level_only: false)
       document = load_file(@path)
 
       ensure_mapping(document)
-      raise Error, "key does not exist: #{@key}" unless delete_key(document)
+      deleted = top_level_only ? !document.delete(@key).nil? : delete_key(document)
+      raise Error, "key does not exist: #{@key}" unless deleted
 
       write(Psych::Pure.dump(document))
     end
