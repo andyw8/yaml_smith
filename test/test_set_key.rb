@@ -6,18 +6,34 @@ class TestSetKey < Minitest::Test
   include YamlFileTestHelper
 
   def test_sets_an_existing_value
-    with_yaml("# Settings\ntimeout: 30\nname: app\n") do |path|
+    with_yaml(<<~YAML) do |path|
+      # Settings
+      timeout: 30
+      name: app
+    YAML
       YamlSmith::SetKey.call(path, 'timeout', '60')
 
-      assert_equal "---\n# Settings\ntimeout: 60\n\nname: app\n", File.read(path)
+      assert_equal <<~YAML, File.read(path)
+        ---
+        # Settings
+        timeout: 60
+
+        name: app
+      YAML
     end
   end
 
   def test_set_adds_a_missing_value
-    with_yaml("name: app\n") do |path|
+    with_yaml(<<~YAML) do |path|
+      name: app
+    YAML
       YamlSmith::SetKey.call(path, 'timeout', '60')
 
-      assert_equal "---\nname: app\ntimeout: 60\n", File.read(path)
+      assert_equal <<~YAML, File.read(path)
+        ---
+        name: app
+        timeout: 60
+      YAML
     end
   end
 end
