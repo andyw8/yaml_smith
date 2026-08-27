@@ -23,4 +23,14 @@ class TestDeleteKey < Minitest::Test
       assert_equal "name: app\n", File.read(path)
     end
   end
+
+  def test_deletes_matching_keys_recursively
+    yaml = "services:\n  - type: web\n    envVars:\n      - WEB_CONCURRENCY: \"0\"\n      - RAILS_MASTER_KEY: false\n"
+    with_yaml(yaml) do |path|
+      YamlSmith::DeleteKey.call(path, 'WEB_CONCURRENCY')
+
+      expected = "---\nservices:\n- type: web\n  envVars:\n  - RAILS_MASTER_KEY: false\n"
+      assert_equal expected, File.read(path)
+    end
+  end
 end
