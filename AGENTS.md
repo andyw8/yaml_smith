@@ -12,7 +12,12 @@
 - `exe/yaml-smith` is only the executable wrapper; CLI dispatch and error handling belong in `lib/yaml_smith/cli.rb`.
 - Each command has its own class and file: `AddKey`, `SetKey`, and `DeleteKey`.
 - Shared file loading, validation, and atomic writing live in `YamlSmith::FileCommand`.
-- Commands currently operate on top-level mapping keys only; do not add nested-path behavior implicitly.
+- `AddKey` and `SetKey` accept a nested path in their `key` argument using dot
+  notation (e.g. `services.0.name`) or bracket notation (e.g. `services[0].name`).
+  Numeric segments index into arrays. `FileCommand#resolve_container` navigates
+  intermediate segments of the path, which must already exist; the final key may
+  be missing (for `set`, it is then added). `DeleteKey` searches matching keys
+  recursively and does not take a path.
 
 ## YAML Behavior
 
