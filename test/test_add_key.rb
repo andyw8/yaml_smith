@@ -100,4 +100,26 @@ class TestAddKey < Minitest::Test
       YAML
     end
   end
+
+  def test_adds_a_nested_value_and_rejects_an_existing_one
+    with_yaml(<<~YAML) do |path|
+      services:
+        - type: web
+          name: rails
+    YAML
+      YamlSmith::AddKey.call(path, 'services.0.plan', 'free')
+      assert_equal <<~YAML, File.read(path)
+        ---
+        services:
+        - type: web
+          name: rails
+          plan: free
+      YAML
+
+      error = assert_raises(YamlSmith::Error) do
+        YamlSmith::AddKey.call(path, 'services.0.name', 'other')
+      end
+      assert_equal 'key already exists: services.0.name', error.message
+    end
+  end
 end

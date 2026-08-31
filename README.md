@@ -28,11 +28,23 @@ yaml-smith add config.yml timeout 30
 The value is parsed as YAML, so values such as `true`, `null`, arrays, and
 objects retain their YAML types. Existing keys are not overwritten.
 
-Set or replace a top-level key:
+Set or replace a key:
 
 ```bash
 yaml-smith set config.yml timeout 60
 ```
+
+Add and set also accept a nested path using dot notation, with numeric
+segments indexing into arrays. For example, this renames the web service in a
+Render configuration:
+
+```bash
+yaml-smith set render.yaml services.0.name rails_foo
+```
+
+Bracket notation is accepted as well: `services[0].name`. Intermediate
+segments of the path must already exist; the final key may be missing (for
+`set`, it is added).
 
 Delete matching keys recursively:
 
